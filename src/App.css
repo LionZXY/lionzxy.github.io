@@ -1,0 +1,484 @@
+/* Bento Grid Layout */
+.bento-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 24px;
+}
+
+.bento-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Profile Section */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  padding-top: 48px;
+  min-width: 320px;
+  max-width: 420px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+}
+
+.profile-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.profile-bio {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Bento Grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 175px);
+  gap: 16px;
+  width: 100%;
+  max-width: 780px;
+}
+
+.bento-grid .card {
+  border-radius: 24px;
+  background: white;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.8s cubic-bezier(0.29, 1.28, 0.47, 0.99),
+              box-shadow 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.bento-grid .card:hover {
+  transform: scale(1.04);
+  z-index: 10;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* Phantom border - subtle inset box-shadow like original */
+.phantom-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 0px 1px inset;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Card sizes */
+.card-2x2 {
+  grid-column: span 2;
+  grid-row: span 2;
+  border-radius: 28px;
+}
+
+.card-2x1 {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.card-1x1 {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+/* Card content */
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card-title {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+
+.card-subtitle {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* GitHub Card */
+.github-card {
+  background: white;
+}
+
+.github-card .card-inner {
+  padding: 24px;
+}
+
+.github-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.follow-btn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.follow-btn:hover {
+  background: #f5f5f5;
+}
+
+.github-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+/* Contribution graph */
+.contribution-graph {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contrib-months {
+  display: flex;
+  gap: 0;
+  margin-bottom: 4px;
+  padding-left: 0;
+}
+
+.contrib-months span {
+  font-size: 0.7rem;
+  color: #888;
+  flex: 1;
+  text-align: center;
+}
+
+.contrib-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.contrib-cell {
+  border-radius: 2.5px;
+  aspect-ratio: 1;
+  min-width: 0;
+}
+
+.contrib-footer {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 8px;
+}
+
+/* Map Card */
+.map-card {
+  background: #f0f0e8;
+  overflow: hidden;
+  min-height: 160px;
+}
+
+.map-card .card-inner {
+  padding: 0;
+  position: relative;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+/* Custom Leaflet map marker */
+.map-marker-custom {
+  background: none !important;
+  border: none !important;
+}
+
+.map-pin-outer {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(100, 149, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mapPulse 2s ease-in-out infinite;
+}
+
+.map-pin-inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6495ed;
+  border: 3.5px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+@keyframes mapPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+}
+
+/* Hide leaflet attribution inside our card */
+.map-card .leaflet-control-attribution {
+  display: none;
+}
+
+/* Lighten map tiles to match Mapbox light style */
+.map-card .leaflet-tile-pane {
+  filter: saturate(0.4) brightness(1.05);
+}
+
+/* Telegram Channel Card */
+.tg-channel-card {
+  background: white;
+}
+
+.tg-channel-card .card-inner {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 12px;
+}
+
+.tg-channel-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.tg-channel-img {
+  width: 130px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Social Cards (Twitter, Instagram, LinkedIn, Telegram) */
+.social-card {
+  background: #f0f7ff;
+}
+
+.social-card .card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Follow buttons */
+.social-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+
+.social-follow-btn:hover {
+  opacity: 0.85;
+}
+
+.social-follow-btn.twitter-blue {
+  background: #55acee;
+}
+
+.social-follow-btn.instagram-blue {
+  background: #4093ef;
+  border-radius: 8px;
+  padding: 7px 14px;
+}
+
+.follower-count {
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 0.75rem;
+}
+
+/* Entrance animations */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-animate {
+  opacity: 0;
+  animation: cardEnter 0.6s cubic-bezier(0.29, 1.28, 0.47, 0.99) forwards;
+}
+
+.profile-animate {
+  opacity: 0;
+  animation: cardEnter 0.6s cubic-bezier(0.29, 1.28, 0.47, 0.99) forwards;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .bento-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-section {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    min-width: unset;
+    padding-top: 24px;
+  }
+
+  .bento-grid {
+    max-width: 600px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .bento-page {
+    padding: 16px 12px;
+  }
+
+  .profile-section {
+    padding: 16px;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-name {
+    font-size: 1.8rem;
+  }
+
+  .profile-bio {
+    font-size: 0.95rem;
+  }
+
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    max-width: 100%;
+  }
+
+  .card-2x2 {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 320px;
+  }
+
+  .card-2x1 {
+    grid-column: span 2;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+
+  .card-1x1 {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 160px;
+  }
+
+  .card-inner {
+    padding: 16px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-2x2,
+  .card-2x1,
+  .card-1x1 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .tg-channel-card .card-inner {
+    flex-direction: column;
+  }
+
+  .tg-channel-img {
+    width: 100%;
+    max-height: 120px;
+  }
+}
