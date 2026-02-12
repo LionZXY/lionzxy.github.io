@@ -54,8 +54,9 @@ function LeafletMap() {
         keyboard: false,
       }).setView([51.49, -0.06], 10)
 
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19,
+        subdomains: 'abcd',
       }).addTo(map)
 
       // Custom pulsing marker - larger to match original
@@ -173,7 +174,7 @@ function TelegramChannelCard() {
           </div>
           <div className="card-subtitle">t.me</div>
         </div>
-        <img src="/images/tg-channel.jpg" alt="Telegram Channel" className="tg-channel-img" />
+        <img src={`${import.meta.env.BASE_URL}images/tg-channel.jpg`} alt="Telegram Channel" className="tg-channel-img" />
       </div>
     </BentoCard>
   )
@@ -255,7 +256,7 @@ function App() {
     <div className="bento-page">
       <div className="bento-container">
         <div className="profile-section">
-          <img src="/images/avatar.jpg" alt="Nikita Kulikov" className="avatar profile-animate" style={{ animationDelay: '0ms' }} />
+          <img src={`${import.meta.env.BASE_URL}images/avatar.jpg`} alt="Nikita Kulikov" className="avatar profile-animate" style={{ animationDelay: '0ms' }} />
           <h1 className="profile-name profile-animate" style={{ animationDelay: '80ms' }}>Nikita Kulikov</h1>
           <p className="profile-bio profile-animate" style={{ animationDelay: '160ms' }}>
             Mobile Engineer in Flipper Devices. UK Global Talent, ex-Snapchat, ex-Yandex, ex-VK

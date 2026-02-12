@@ -284,7 +284,7 @@
 
 /* Lighten map tiles to match Mapbox light style */
 .map-card .leaflet-tile-pane {
-  filter: saturate(0.4) brightness(1.05);
+  filter: saturate(0.3) brightness(1.08);
 }
 
 /* Telegram Channel Card */
