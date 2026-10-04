@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react'
-import 'leaflet/dist/leaflet.css'
 import './App.css'
+import { location } from './data/location'
 
 // SVG Icons
 const GitHubIcon = () => (
@@ -35,52 +34,6 @@ const TelegramIcon = ({ color = 'white' }) => (
   </svg>
 )
 
-// Leaflet Map Component
-function LeafletMap() {
-  const mapRef = useRef(null)
-  const mapInstanceRef = useRef(null)
-
-  useEffect(() => {
-    if (mapInstanceRef.current) return
-    import('leaflet').then((L) => {
-      if (!mapRef.current || mapInstanceRef.current) return
-      const map = L.map(mapRef.current, {
-        zoomControl: false,
-        attributionControl: false,
-        dragging: false,
-        scrollWheelZoom: false,
-        doubleClickZoom: false,
-        touchZoom: false,
-        keyboard: false,
-      }).setView([51.49, -0.06], 10)
-
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd',
-      }).addTo(map)
-
-      // Custom pulsing marker - larger to match original
-      const markerIcon = L.divIcon({
-        className: 'map-marker-custom',
-        html: '<div class="map-pin-outer"><div class="map-pin-inner"></div></div>',
-        iconSize: [36, 36],
-        iconAnchor: [18, 18],
-      })
-      L.marker([51.4805, -0.005], { icon: markerIcon }).addTo(map)
-
-      mapInstanceRef.current = map
-    })
-    return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove()
-        mapInstanceRef.current = null
-      }
-    }
-  }, [])
-
-  return <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
-}
-
 // Generate contribution graph data (seeded for consistency)
 function generateContributions() {
   const weeks = 16
@@ -105,6 +58,15 @@ function generateContributions() {
 const contribColors = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 const contributions = generateContributions()
 
+/**
+ * @param {{
+ *   children: import('react').ReactNode,
+ *   className?: string,
+ *   size?: '1x1' | '2x1' | '2x2',
+ *   delay?: number,
+ *   href?: string,
+ * }} props
+ */
 function BentoCard({ children, className = '', size = '1x1', delay = 0, href }) {
   const sizeClass = `card-${size}`
   const Tag = href ? 'a' : 'div'
@@ -152,10 +114,15 @@ function GitHubCard() {
 
 function MapCard() {
   return (
-    <BentoCard size="2x1" className="map-card" delay={200} href="https://www.google.com/maps/@51.48,-0.005,11z">
+    <BentoCard size="2x1" className="map-card" delay={200} href={location.mapLink}>
       <div className="card-inner">
-        <LeafletMap />
-        <div className="map-overlay">London, UK</div>
+        <img
+          className="map-image"
+          src={`${import.meta.env.BASE_URL}${location.mapAsset}`}
+          alt={`Static map showing ${location.label}`}
+          data-testid="location-map"
+        />
+        <div className="map-overlay" data-testid="location-label">{location.label}</div>
       </div>
     </BentoCard>
   )
