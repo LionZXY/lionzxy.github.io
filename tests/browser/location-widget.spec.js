@@ -91,7 +91,9 @@ test('map CSS pixels match original f4582ce Leaflet and frozen original styles',
     return route.abort()
   })
   await page.goto('/', { waitUntil:'networkidle' })
-  await page.addStyleTag({ content:freeze })
+  // Attribution is a required intentional addition, absent from the old design.
+  // Its visibility is checked independently in every normal-layout test.
+  await page.addStyleTag({ content:freeze+' .map-attribution { visibility:hidden !important; }' })
   await tilesReady(page)
   // Normalize position only, not native CSS size, to eliminate fractional-scroll
   // compositor differences when substituting the original map in the same card.
