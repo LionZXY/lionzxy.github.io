@@ -7,6 +7,10 @@ const freeze = '.card-animate { animation:none !important; opacity:1 !important;
 
 async function tilesReady(page) {
   await expect.poll(() => page.locator('img.leaflet-tile').evaluateAll((images) => images.length > 0 && images.every((image) => image.complete && image.naturalWidth > 0 && Number(getComputedStyle(image).opacity) === 1))).toBe(true)
+  // Image load/opacity is not a compositor-paint barrier in WebKit.
+  await page.waitForLoadState('networkidle')
+  await page.locator('img.leaflet-tile').evaluateAll((images) => Promise.all(images.map((image) => image.decode())))
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))))
 }
 async function geometry(page) {
   return page.getByTestId('location-map').evaluate((map) => {
