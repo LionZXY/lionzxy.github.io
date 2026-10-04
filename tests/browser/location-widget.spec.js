@@ -101,8 +101,12 @@ test('map CSS pixels match original f4582ce Leaflet and frozen original styles',
   // are also asserted there. Browser raster-decoder seams have an explicit
   // five-CSS-pixel allowance after anti-alias detection; styles/geometry below
   // must match exactly and no API-error/asset/layout tolerance is allowed.
+  const bounds=await page.getByTestId('location-map').boundingBox()
+  // Reuse one integer crop for both screenshots; Firefox element crops can
+  // round the same fractional layout to different one-pixel extents.
+  const clip={x:0,y:0,width:Math.ceil(bounds.width),height:Math.ceil(bounds.height)}
   const currentDesign=await design(page,'location-map')
-  const current=await page.getByTestId('location-map').screenshot({ path:info.outputPath('local-map.png'), scale:'css' })
+  const current=await page.screenshot({ path:info.outputPath('local-map.png'), scale:'css', clip })
   await page.addStyleTag({ content:await readFile(new URL('../fixtures/original-map.css',import.meta.url),'utf8') })
   await page.addScriptTag({ content:await readFile(new URL('../../node_modules/leaflet/dist/leaflet.js',import.meta.url),'utf8') })
   await page.evaluate(() => {
@@ -118,7 +122,7 @@ test('map CSS pixels match original f4582ce Leaflet and frozen original styles',
   })
   await tilesReady(page)
   expect(await design(page,'original-map'), 'original geometry and computed styles').toEqual(currentDesign)
-  const original=await page.getByTestId('original-map').screenshot({ path:info.outputPath('original-map.png'), scale:'css' })
+  const original=await page.screenshot({ path:info.outputPath('original-map.png'), scale:'css', clip })
   const a=PNG.sync.read(current),b=PNG.sync.read(original)
   expect(a.width).toBe(b.width);expect(a.height).toBe(b.height)
   let rawChangedPixels=0
