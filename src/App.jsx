@@ -1,3 +1,5 @@
+import 'leaflet/dist/leaflet.css'
+import { LeafletMap } from './components/LeafletMap'
 import './App.css'
 import { location } from './data/location'
 
@@ -114,14 +116,10 @@ function GitHubCard() {
 
 function MapCard() {
   return (
-    <BentoCard size="2x1" className="map-card" delay={200} href={location.mapLink}>
+    <BentoCard size="2x1" className="map-card" delay={200}>
       <div className="card-inner">
-        <img
-          className="map-image"
-          src={`${import.meta.env.BASE_URL}${location.mapAsset}`}
-          alt={`Static map showing ${location.label}`}
-          data-testid="location-map"
-        />
+        <a className="map-link" href={location.mapLink} target="_blank" rel="noopener noreferrer" aria-label="Open London in Google Maps"><LeafletMap /></a>
+        <div className="map-attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> © <a href="https://carto.com/attribution/" target="_blank" rel="noopener noreferrer">CARTO</a></div>
         <div className="map-overlay" data-testid="location-label">{location.label}</div>
       </div>
     </BentoCard>
