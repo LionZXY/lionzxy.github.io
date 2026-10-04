@@ -1,0 +1,66 @@
+/* Frozen original map design from f4582ce. Reference-only. */
+/* Map Card */
+.map-card {
+  background: #f0f0e8;
+  overflow: hidden;
+  min-height: 160px;
+}
+
+.map-card .card-inner {
+  padding: 0;
+  position: relative;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+/* Custom Leaflet map marker */
+.map-marker-custom {
+  background: none !important;
+  border: none !important;
+}
+
+.map-pin-outer {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(100, 149, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mapPulse 2s ease-in-out infinite;
+}
+
+.map-pin-inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6495ed;
+  border: 3.5px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+@keyframes mapPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+}
+
+/* Hide leaflet attribution inside our card */
+.map-card .leaflet-control-attribution {
+  display: none;
+}
+
+/* Lighten map tiles to match Mapbox light style */
+.map-card .leaflet-tile-pane {
+  filter: saturate(0.3) brightness(1.08);
+}
