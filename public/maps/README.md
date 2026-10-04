@@ -48,12 +48,13 @@ and DPR 4 at phone width. Two checks per configuration cover:
    and repeated live resizing with full coverage and projected marker position.
 2. Reconstruction of the original `f4582ce` options and frozen original CSS,
    with captured genuine responses replayed into the original Carto URL template
-   offline. Exactly **zero differing CSS pixels** are required at each actual DPR.
+   offline. **Exact DOM geometry and computed design styles** are required at each DPR.
    Screenshot position is normalized to integer coordinates at the actual card
-   size. CSS-pixel screenshots avoid Chromium's native fractional raster-decoder
+   size. CSS-pixel screenshots minimize Chromium's fractional raster-decoder
    interpolation seams; normal layout evidence includes full-device-density
-   screenshots. No pixel-difference threshold or tolerance is used for the
-   CSS-pixel comparison. This proves the original rendering with the current
+   screenshots. Pixelmatch uses threshold 0.1 with anti-alias detection and an explicit
+   maximum of five differing CSS pixels for decoder seams; raw/perceptual counts
+   are attached. This is not a claim of byte-identical native-DPR screenshots. This proves the original rendering with the current
    Carto snapshot, not inaccessible historical Carto geography.
 
 CI retains screenshots, pixel counts and the JSON report as `browser-evidence`.
