@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title desc">
+  <title id="title">Map of London</title>
+  <desc id="desc">A stylised local map of London with a marker near Greenwich.</desc>
+  <rect width="800" height="360" fill="#f2f1eb"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-30 82 C120 54 188 96 323 65 S574 77 838 25" stroke="#deddd6" stroke-width="18"/>
+    <path d="M-15 286 C96 237 191 272 302 224 S529 186 835 211" stroke="#deddd6" stroke-width="16"/>
+    <path d="M53 -12 C105 76 139 145 152 372" stroke="#deddd6" stroke-width="14"/>
+    <path d="M617 -20 C594 72 609 139 676 211 S742 304 724 382" stroke="#deddd6" stroke-width="14"/>
+    <path d="M243 -10 C246 94 226 154 193 216 S155 309 167 378" stroke="#e3e2dc" stroke-width="10"/>
+    <path d="M440 -20 C425 87 460 141 513 195 S572 292 551 378" stroke="#e3e2dc" stroke-width="10"/>
+    <path d="M-20 158 C111 128 217 154 321 138 S536 97 828 125" stroke="#e3e2dc" stroke-width="10"/>
+    <path d="M-20 331 C142 306 249 320 367 286 S606 244 827 275" stroke="#e3e2dc" stroke-width="10"/>
+    <path d="M35 13 L755 345 M91 342 L682 0 M-18 224 L808 55 M83 0 L764 294" stroke="#e8e7e1" stroke-width="6"/>
+    <path d="M-25 212 C74 179 134 190 202 225 C276 263 330 270 397 237 C463 205 493 195 550 215 C627 242 696 258 825 226" stroke="#b9dce8" stroke-width="37"/>
+    <path d="M-25 212 C74 179 134 190 202 225 C276 263 330 270 397 237 C463 205 493 195 550 215 C627 242 696 258 825 226" stroke="#d7edf3" stroke-width="25"/>
+    <path d="M366 90 L355 311 M482 75 L496 291 M283 115 L300 324" stroke="#d4d2ca" stroke-width="7"/>
+  </g>
+  <g fill="#88877f" font-family="system-ui, sans-serif" font-size="18">
+    <text x="285" y="116">London</text>
+    <text x="545" y="175">Greenwich</text>
+    <text x="632" y="318">Blackheath</text>
+  </g>
+  <g transform="translate(560 207)">
+    <circle r="31" fill="#6495ed" opacity=".22"/>
+    <circle r="16" fill="#6495ed" stroke="#fff" stroke-width="6"/>
+  </g>
+</svg>
