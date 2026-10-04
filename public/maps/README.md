@@ -49,6 +49,11 @@ and DPR 4 at phone width. Two checks per configuration cover:
 2. Reconstruction of the original `f4582ce` options and frozen original CSS,
    with captured genuine responses replayed into the original Carto URL template
    offline. **Exact DOM geometry and computed design styles** are required at each DPR.
+   Capture freezes both CSS animations and transitions before measuring or moving
+   the card. Each comparison deliberately starts a long-running transform transition
+   and verifies that capture cancels it completely. This prevents timing-dependent
+   geometry drift without widening either the geometry or pixel allowance; the
+   production hover/entrance/pulse animations remain unchanged.
    Screenshot position/crop is normalized to integer coordinates at the actual
    card size. The new attribution is excluded from the old-design comparison;
    its visibility is asserted separately in every normal-layout test. CSS-pixel screenshots minimize Chromium's fractional raster-decoder

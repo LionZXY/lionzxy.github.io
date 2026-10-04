@@ -3,7 +3,20 @@ import { readFile } from 'node:fs/promises'
 import { PNG } from 'pngjs'
 import pixelmatch from 'pixelmatch'
 const origin = 'http://127.0.0.1:4173'
-const freeze = '.card-animate { animation:none !important; opacity:1 !important; transform:none !important; } .map-pin-outer { animation:none !important; }'
+const freeze = `
+  *, *::before, *::after { transition:none !important; }
+  .card-animate { animation:none !important; opacity:1 !important; transform:none !important; }
+  .map-pin-outer { animation:none !important; }
+`
+
+async function freezeVisuals(page, extra = '') {
+  // A transition takes precedence even over an !important transform override.
+  // Stop it before reading dimensions, relocating the card or taking pictures.
+  await page.addStyleTag({ content: freeze + extra })
+  await expect(page.locator('.map-card')).toHaveCSS('transition-duration', '0s')
+  await expect(page.locator('.map-card')).toHaveCSS('transform', 'none')
+  expect(await page.locator('.map-card').evaluate((card) => card.getAnimations().length)).toBe(0)
+}
 
 async function tilesReady(page) {
   await expect.poll(() => page.locator('img.leaflet-tile').evaluateAll((images) => images.length > 0 && images.every((image) => image.complete && image.naturalWidth > 0 && Number(getComputedStyle(image).opacity) === 1))).toBe(true)
@@ -45,7 +58,7 @@ test('local map loads without third-party requests and survives all responsive l
   await page.goto('/', { waitUntil: 'networkidle' })
   await expect(page.locator('.map-pin-outer')).toHaveCSS('animation-name', 'mapPulse')
   await expect(page.locator('.map-pin-outer')).toHaveCSS('animation-duration', '2s')
-  await page.addStyleTag({ content: freeze })
+  await freezeVisuals(page)
   await tilesReady(page)
   const map = page.getByTestId('location-map'), card = page.locator('.map-card')
   await expect(map).toHaveAttribute('aria-label', 'Map showing London, UK')
@@ -91,9 +104,20 @@ test('map CSS pixels match original f4582ce Leaflet and frozen original styles',
     return route.abort()
   })
   await page.goto('/', { waitUntil:'networkidle' })
+  // Regression: enter capture with an active transition. Previously the freeze
+  // started a new 0.8s transition towards transform:none, racing both captures.
+  await page.locator('.map-card').evaluate(async (card) => {
+    card.style.animation = 'none'
+    card.style.transition = 'transform 60s linear'
+    card.style.transform = 'scale(0.98)'
+    void card.offsetWidth
+    card.style.transform = 'scale(1.02)'
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+  })
+  expect(await page.locator('.map-card').evaluate((card) => card.getAnimations().some((animation) => animation.playState === 'running'))).toBe(true)
   // Attribution is a required intentional addition, absent from the old design.
   // Its visibility is checked independently in every normal-layout test.
-  await page.addStyleTag({ content:freeze+' .map-attribution { visibility:hidden !important; }' })
+  await freezeVisuals(page, ' .map-attribution { visibility:hidden !important; }')
   await tilesReady(page)
   // Normalize position only, not native CSS size, to eliminate fractional-scroll
   // compositor differences when substituting the original map in the same card.
